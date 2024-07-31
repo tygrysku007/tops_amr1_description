@@ -1,10 +1,12 @@
 from launch_ros.actions import Node
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import Command, LaunchConfiguration
 from launch.conditions import IfCondition, UnlessCondition
 import xacro
 import os
+import launch_ros
+import launch
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -47,6 +49,14 @@ def generate_launch_description():
         name='joint_state_publisher_gui'
     )
 
+    robot_localization_node = launch_ros.actions.Node(
+       package='robot_localization',
+       executable='ekf_node',
+       name='ekf_filter_node',
+       output='screen',
+       parameters=[os.path.join(share_dir, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}]
+    )
+
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -56,9 +66,12 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='False',
+                                            description='Flag to enable use_sim_time'),
         gui_arg,
         robot_state_publisher_node,
         # joint_state_publisher_node,
         # joint_state_publisher_gui_node,
+        robot_localization_node,
         rviz_node
     ])
