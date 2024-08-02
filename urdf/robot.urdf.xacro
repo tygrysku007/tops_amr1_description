@@ -3,7 +3,7 @@
 
     <xacro:include filename="$(find tops_amr1_description)/urdf/tops_amr1.xacro" />
     <xacro:include filename="$(find tops_amr1_description)/urdf/materials.xacro" />
-    <xacro:include filename="$(find tops_amr1_description)/urdf/tops_amr1.trans" />
+    <!-- <xacro:include filename="$(find tops_amr1_description)/urdf/tops_amr1.trans" /> -->
     <xacro:include filename="$(find tops_amr1_description)/urdf/gazebo_control.xacro" />
     <xacro:include filename="$(find tops_amr1_description)/urdf/lidar.xacro" />
     
