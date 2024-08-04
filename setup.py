@@ -28,6 +28,7 @@ setup(
         'console_scripts': [
             'encoder_subscriber = tops_amr1_description.encoder_subscriber:main',
             'imu_subscriber = tops_amr1_description.imu_subscriber:main',
+            'joint_state_publisher = tops_amr1_description.joint_state_publisher:main',
         ],
     },
 )
